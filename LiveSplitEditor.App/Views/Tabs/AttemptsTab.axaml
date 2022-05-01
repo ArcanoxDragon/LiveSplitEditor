@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:converters="clr-namespace:LiveSplitEditor.App.Converters"
+			 xmlns:vm="clr-namespace:LiveSplitEditor.Core.ViewModels;assembly=LiveSplitEditor.Core"
+			 xmlns:designData="clr-namespace:LiveSplitEditor.Core.DesignData;assembly=LiveSplitEditor.Core"
+			 xmlns:controls="clr-namespace:LiveSplitEditor.App.Views.Controls"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 d:DataContext="{x:Static designData:SplitFiles.TestSplitFile}"
+			 x:Class="LiveSplitEditor.App.Views.Tabs.AttemptsTab"
+			 x:DataType="vm:SplitFileViewModel"
+			 x:CompileBindings="True">
+	<UserControl.Resources>
+		<converters:BooleanSelectorConverter x:Key="AttemptCompletedConverter" FalseValue="(Incomplete)" TrueValue="" />
+	</UserControl.Resources>
+
+	<Grid ColumnDefinitions="Auto,4,*">
+		<ListBox x:Name="AttemptsList" Grid.Column="0" MinWidth="200" Items="{Binding AttemptHistory.Items}">
+			<ListBox.ItemTemplate>
+				<DataTemplate DataType="vm:AttemptViewModel">
+					<StackPanel>
+						<TextBlock>
+							<Run FontWeight="Bold" Text="{Binding Id, StringFormat='Attempt #{0}'}" />
+							<Run FontStyle="Italic" Text="{Binding IsCompleted, Converter={StaticResource AttemptCompletedConverter}}" />
+						</TextBlock>
+						<TextBlock Text="{Binding Started, StringFormat='Started at {0:G}'}" />
+						<TextBlock Text="{Binding Ended, StringFormat='Ended at {0:G}'}" />
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+
+		<GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
+
+		<Grid Grid.Column="2" RowDefinitions="Auto,*" DataContext="{Binding #AttemptsList.SelectedItem}" IsVisible="{Binding #AttemptsList.SelectedItem, Converter={x:Static ObjectConverters.IsNotNull}}">
+			<controls:AttemptInfo Grid.Row="0" Padding="4" />
+			<controls:AttemptSegments Grid.Row="0" />
+		</Grid>
+	</Grid>
+</UserControl>

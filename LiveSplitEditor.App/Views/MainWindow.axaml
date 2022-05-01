@@ -1,0 +1,34 @@
+<reactiveUi:ReactiveWindow x:TypeArguments="viewModels:SplitFileViewModel"
+						   xmlns="https://github.com/avaloniaui"
+						   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+						   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+						   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+						   xmlns:reactiveUi="http://reactiveui.net"
+						   xmlns:tabs="clr-namespace:LiveSplitEditor.App.Views.Tabs"
+						   xmlns:designData="clr-namespace:LiveSplitEditor.Core.DesignData;assembly=LiveSplitEditor.Core"
+						   xmlns:viewModels="clr-namespace:LiveSplitEditor.Core.ViewModels;assembly=LiveSplitEditor.Core"
+						   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+						   x:Class="LiveSplitEditor.App.Views.MainWindow"
+						   d:DataContext="{x:Static designData:SplitFiles.TestSplitFile}"
+						   Icon="/Assets/avalonia-logo.ico"
+						   Title="LiveSplitEditor.App">
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_File">
+				<MenuItem Header="_Open Split File..." HotKey="Ctrl+O" />
+				<Separator />
+				<MenuItem Header="E_xit" HotKey="Alt+F4" />
+			</MenuItem>
+		</Menu>
+
+		<TabControl>
+			<!--<TabItem Header="Segments">
+				<tabs:SegmentsTab />
+			</TabItem>-->
+
+			<TabItem Header="Attempts">
+				<tabs:AttemptsTab />
+			</TabItem>
+		</TabControl>
+	</DockPanel>
+</reactiveUi:ReactiveWindow>

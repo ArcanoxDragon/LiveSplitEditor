@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:LiveSplitEditor.Core.ViewModels;assembly=LiveSplitEditor.Core"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="LiveSplitEditor.App.Views.Controls.AttemptSegments"
+			 x:DataType="vm:AttemptViewModel"
+			 x:CompileBindings="True">
+	<!--Items="{Binding Segments}" -->
+	<DataGrid AutoGenerateColumns="False" IsReadOnly="True">
+		<DataGrid.Columns>
+			<DataGridTextColumn Header="Name" Binding="{ReflectionBinding Name}" Width="*" IsReadOnly="True" />
+			<DataGridTextColumn Header="Segment Time" Binding="{ReflectionBinding AttemptTime.RealTime, FallbackValue='No Time'}" MinWidth="100" />
+			<DataGridTextColumn Header="Best Segment Time" Binding="{ReflectionBinding BestSegmentTime.RealTime, FallbackValue=''}" MinWidth="100"
+								IsReadOnly="True" />
+			<DataGridTextColumn Header="+/- Gold Split" Binding="{ReflectionBinding GoldSplitDelta.RealTime}" MinWidth="100" IsReadOnly="True" />
+		</DataGrid.Columns>
+	</DataGrid>
+</UserControl>
